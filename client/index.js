@@ -1,5 +1,6 @@
 var io = require('socket.io-client');
-var socket = io('http://localhost:5000');
+//set the URL to localhost:5000 if running the local server
+var socket = io('https://fast-cove-47193.herokuapp.com/');
 const Max = require('max-api');
 
 var friendfo = {
@@ -25,6 +26,7 @@ socket.on('friend-data', (msg)=>{
 	update_friend(msg.name, msg);
     Max.outlet("friend-data",friends);
 });
+
 socket.on('disconnect', ()=>{});
 
 function sendfriend(){
