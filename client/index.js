@@ -6,13 +6,24 @@ var friendfo = {
     x: 0, y: 0, name: 'Basic', active: false
 };
 
+var friends = [];
+
+var update_friend = function(name,msg){
+    var friendex = friends.findIndex(function(element) {return element.name == name;});
+    if (friendex>=0) {
+        friends[friendex] = msg;
+    }
+    else friends.push(msg);
+}
+
 socket.on('connect', ()=>{
     //print when connection to socket.io is successful
     console.log("connection: "+socket.connected);
 });
 
 socket.on('friend-data', (msg)=>{
-    Max.outlet("friend-data",msg);
+	update_friend(msg.name, msg);
+    Max.outlet("friend-data",friends);
 });
 socket.on('disconnect', ()=>{});
 
@@ -27,5 +38,5 @@ socket.on('name assignment',function(msg){
 
 socket.on('online_users',function(count){
 	//$('#active_users').html("");
-	console.log(count.toString()+" friendss online");
+	console.log(count.toString()+" friends online");
 });
