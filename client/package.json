@@ -1,7 +1,8 @@
+
 {
-  "name": "scroppy-client",
+  "name": "friends-client",
   "version": "1.0.0",
-  "description": "Client websocket script to send/receive PNG parts and interface with Max",
+  "description": "Client websocket script to send/receive remote drawing info",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,7 +10,6 @@
   "author": "Andrew Benson",
   "license": "ISC",
   "dependencies": {
-    "ba64": "^3.0.9",
     "socket.io-client": "^2.1.1"
   }
 }
