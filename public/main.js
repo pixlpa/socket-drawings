@@ -31,7 +31,7 @@ function friender() {
 //function to provide gestural feedback
 function animate(){
     friender();
-    if (friendfo.active = true){
+    if (friendfo.active == true){
         outc.fillRect(friendfo.x*640-3,friendfo.y*640-3,6,6);
     }
     sendit();
