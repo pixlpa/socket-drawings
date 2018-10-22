@@ -1,0 +1,15 @@
+{
+  "name": "scroppy-client",
+  "version": "1.0.0",
+  "description": "Client websocket script to send/receive PNG parts and interface with Max",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrew Benson",
+  "license": "ISC",
+  "dependencies": {
+    "ba64": "^3.0.9",
+    "socket.io-client": "^2.1.1"
+  }
+}
