@@ -1,20 +1,31 @@
 var io = require('socket.io-client');
 //set the URL to localhost:5000 if running the local server
-var socket = io('https://fast-cove-47193.herokuapp.com/');
+var socket = io('http://localhost:5000');
 const Max = require('max-api');
 
+var unique_name = "Basic";
 var friendfo = {
     x: 0, y: 0, name: 'Basic', active: false
 };
 
-var friends = [];
+var friends = {};
+
+function sendfriend(){
+	socket.emit('friend-data', friendfo);
+}
+
+function friendfilter(masterlist){
+    for (var prop in friends){
+        if ( friends.hasOwnProperty(prop) ) {
+            if (masterlist.indexOf(prop) === -1 ){
+                delete friends[prop];
+            }
+        }
+    }
+}
 
 var update_friend = function(name,msg){
-    var friendex = friends.findIndex(function(element) {return element.name == name;});
-    if (friendex>=0) {
-        friends[friendex] = msg;
-    }
-    else friends.push(msg);
+    friends[name] = msg;
 }
 
 socket.on('connect', ()=>{
@@ -27,18 +38,29 @@ socket.on('friend-data', (msg)=>{
     Max.outlet("friend-data",friends);
 });
 
+socket.on('friend-list', (msg)=>{
+	friendfilter(msg);
+    Max.outlet("friend-data",friends);
+});
+
 socket.on('disconnect', ()=>{});
 
-function sendfriend(){
-	socket.emit('friend-data', friendfo);
-}
-
 socket.on('name assignment',function(msg){
-	unique_name = msg;
+    unique_name = msg;
+    friendfo.name = msg;
 	console.log('OK, my name is '+unique_name);
 });
 
 socket.on('online_users',function(count){
 	//$('#active_users').html("");
 	console.log(count.toString()+" friends online");
+});
+
+Max.addHandlers({
+    send: (x,y,active) =>{
+        friendfo.x = x;
+        friendfo.y = y;
+        friendfo.active = active;
+        sendfriend();
+    } 
 });

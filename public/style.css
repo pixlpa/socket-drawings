@@ -31,9 +31,18 @@ body{
 }
   
 .info {
-	background: turquoise;
+	background: darkslategrey;
 	text-size: 9pt;
 	padding: 10px 10px 10px 10px;
+}
+
+.infobox {
+	background: lightgoldenrodyellow;
+	text-size: 20px;
+	font-family: Arial, Helvetica, sans-serif;
+	border-radius: 5px;
+	margin: 5px 5px 5px 5px;
+	padding: 10px;
 }
   
 @media (orientation: landscape){
