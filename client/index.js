@@ -1,6 +1,6 @@
 var io = require('socket.io-client');
-//set the URL to localhost:5000 if running the local server
-var socket = io('http://localhost:5000');
+//set the URL to localhost:5000 if running the local server via CLI
+var socket = io('https://fast-cove-47193.herokuapp.com/');
 const Max = require('max-api');
 
 var unique_name = "Basic";
