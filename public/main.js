@@ -1,101 +1,97 @@
-var outcan = document.getElementById("outcanvas");
-var outc = outcan.getContext("2d");
-var ocw = outcan.width;
-var och = outcan.height;
+let outcan = document.getElementById("outcanvas");
+let outc = outcan.getContext("2d");
+let ocw = outcan.width;
+let och = outcan.height;
 
-var time = window.setInterval(animate, 60);
-var video = document.createElement("video");
-var name_flash = 0;
+let time = window.setInterval(animate, 60);
+let video = document.createElement("video");
+let nameFlash = 0;
 
-var friendfo = {
+let friend = {
 	x: 0, y: 0, name: "Basic", active: false
 };
 
-var friends = {};
+let friends = {};
 
 
 // function to provide gestural feedback
 function animate() {
 	friender();
-	if (friendfo.active == true) {
+	if (friend.active) {
 		outc.beginPath();
-		outc.arc(friendfo.x * 640, friendfo.y * 640, 3, 0, Math.PI * 2.0);
+		outc.arc(friend.x * 640, friend.y * 640, 3, 0, Math.PI * 2.0);
 		outc.fill();
 	}
 
-	name_flash++;
-	if (name_flash > 3) {
+	nameFlash++;
+	if (nameFlash > 3) {
 		$("#incoming_scrop").html("…");
 	}
 }
 
 // ----friend management
-function sendfriend() {
-	socket.emit("friend-data", friendfo);
+function sendFriend() {
+	socket.emit("friend-data", friend);
 }
 
-function friendfilter(masterlist) {
-	for (var prop in friends) {
-		if ( friends.hasOwnProperty(prop) ) {
-			if (masterlist.indexOf(prop) === -1 ) {
-				delete friends[prop];
-			}
+function friendFilter(masterList) {
+	Object.keys(friends).forEach(function (name) {
+		if (masterList.indexOf(name) === -1) {
+			delete friends[name];
 		}
-	}
+	});
 }
 
-var update_friend = function (name, msg) {
+function updateFriend(name, msg) {
 	friends[name] = msg;
 };
 
 // render friends onto canvas
 function friender() {
 	outc.fillStyle = "#888";
-	for (var ff in friends) {
-		if ( friends.hasOwnProperty(ff) ) {
-			if(friends[ff].active) {
-				outc.beginPath();
-				outc.arc(friends[ff].x * 640, friends[ff].y * 640, 3, 0, Math.PI * 2.0);
-				outc.fill();
-			}
+	Object.keys(friends).forEach(function (name) {
+		if (friends[name].active) {
+			outc.beginPath();
+			outc.arc(friends[name].x * 640, friends[name].y * 640, 3, 0, Math.PI * 2.0);
+			outc.fill();
 		}
-	}
+	});
 	outc.fillStyle = "#00A";
 }
 
 // ------------socket stuff
-var sockImage = new Image();
-var socket = io();
+let sockImage = new Image();
+let socket = io();
 
-function sendit() {
-	if (friendfo.name != "Basic") {
-	    socket.emit("friend-data", friendfo);
+function sendIt() {
+	if (friend.name != "Basic") {
+	    socket.emit("friend-data", friend);
 	}
 }
 
 socket.on("friend-data", function (msg) {
-	update_friend(msg.name, msg);
+	updateFriend(msg.name, msg);
 	$("#incoming_scrop").html("Receiving " + msg.name);
-	name_flash = 0;
+	nameFlash = 0;
 });
 
 socket.on("connect", function () {
 	console.log("connection: " + socket.connected);
 });
 
-socket.on("name assignment", function (msg) {
-	friendfo.name = msg;
+socket.on("name-assignment", function (msg) {
+	friend.name = msg;
 	console.log("OK, my name is " + msg);
 	$("#my_name").html("We shall call you " + msg);
 });
 
-socket.on("online_users", function (count) {
+socket.on("online-users", function (count) {
 	// $('#active_users').html("");
 	$("#active_users").html(count.toString() + " friends online");
 });
 
 socket.on("friend-list", (msg)=>{
-	friendfilter(msg);
+	friendFilter(msg);
 });
 
 // ----------bind the touch/click events
@@ -104,46 +100,46 @@ $(document).ready(function () {
 		e.originalEvent.preventDefault();
 		ocw = outcan.scrollWidth;
 		och = outcan.scrollHeight;
-		friendfo.active = true;
-		friendfo.x = e.pageX / ocw;
-		friendfo.y = e.pageY / och;
-		sendit();
+		friend.active = true;
+		friend.x = e.pageX / ocw;
+		friend.y = e.pageY / och;
+		sendIt();
 		$(document).on("mousemove", function (e) {
-			friendfo.x = e.pageX / ocw;
-			friendfo.y = e.pageY / och;
-			sendit();
+			friend.x = e.pageX / ocw;
+			friend.y = e.pageY / och;
+			sendIt();
 		});
 		$(document).on("mouseup", function (e) {
 			$(document).unbind("mousemove");
 			$(document).unbind("mouseup");
-			friendfo.active = false;
-			sendit();
+			friend.active = false;
+			sendIt();
 		});
 	});
 
 	$("#outcanvas").on("touchstart", function (e) {
 		e.preventDefault();
 		e.originalEvent.preventDefault();
-		var ev = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+		let ev = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
 		ocw = outcan.scrollWidth;
 		och = outcan.scrollHeight;
-		friendfo.active = true;
-		friendfo.x = ev.pageX / ocw;
-		friendfo.y = ev.pageY / och;
-		sendit();
+		friend.active = true;
+		friend.x = ev.pageX / ocw;
+		friend.y = ev.pageY / och;
+		sendIt();
 		$(document).on("touchmove", function (e) {
-  	e.preventDefault();
-  	e.originalEvent.preventDefault();
-			var ev = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-			friendfo.x = ev.pageX / ocw;
-			friendfo.y = ev.pageY / och;
-			sendit();
+			e.preventDefault();
+			e.originalEvent.preventDefault();
+			let ev = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+			friend.x = ev.pageX / ocw;
+			friend.y = ev.pageY / och;
+			sendIt();
 		});
 		$(document).on("touchend", function (e) {
 			$(document).unbind("touchmove");
 			$(document).unbind("touchend");
-			friendfo.active = false;
-			sendit();
+			friend.active = false;
+			sendIt();
 		});
 	});
 });
