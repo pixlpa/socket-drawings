@@ -1,23 +1,21 @@
 <html>
 	<head>
 		<title>Everything is connected</title>
-				<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
 	</head>
 <body>
 	<div class="wrapper">
-		<div class ="holder">
+		<div class="holder">
 			<canvas id="outcanvas" width="640px" height="640px"></canvas>
 		</div>
-		<div class = "info">
+		<div class="info">
 			<div id="my_name" class="infobox"></div>
 			<div id="active_users" class="infobox"></div>
 			<div id="incoming_scrop" class="infobox"></div>
 		</div>
 	</div>
 </body>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-<script src="/socket.io/socket.io.js"></script>
-
-<script type="text/javascript" src="main.js"></script>
+	<script src="main.js"></script>
 </html>
