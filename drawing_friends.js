@@ -1,8 +1,8 @@
 const io = require("socket.io-client");
 // set the URL to localhost:5000 if running the local server via CLI
-// const socket = io("https://fast-cove-47193.herokuapp.com/");
-const socket = io("https://socket-drawings.herokuapp.com/");
 // TODO you should be able to change this from Max
+const socket = io("https://fast-cove-47193.herokuapp.com/");
+// const socket = io("https://socket-drawings.herokuapp.com/");
 // const socket = io('http://localhost:5000');
 const maxApi = require("max-api");
 
