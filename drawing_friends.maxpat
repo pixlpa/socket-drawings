@@ -4,13 +4,13 @@
 		"appversion" : 		{
 			"major" : 8,
 			"minor" : 0,
-			"revision" : 1,
+			"revision" : 2,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 78.0, 1313.0, 801.0 ],
+		"rect" : [ 34.0, 79.0, 1313.0, 801.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -170,7 +170,7 @@
 						"appversion" : 						{
 							"major" : 8,
 							"minor" : 0,
-							"revision" : 1,
+							"revision" : 2,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -543,7 +543,7 @@
 						"appversion" : 						{
 							"major" : 8,
 							"minor" : 0,
-							"revision" : 1,
+							"revision" : 2,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -1231,16 +1231,16 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 268.0, 114.0, 136.0, 22.0 ],
+					"patching_rect" : [ 268.0, 114.0, 167.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"autostart" : 0,
 						"defer" : 0,
 						"node" : "",
-						"npm" : "install",
+						"npm" : "",
 						"watch" : 0
 					}
 ,
-					"text" : "node.script index.js"
+					"text" : "node.script drawing_friends.js"
 				}
 
 			}
@@ -1636,6 +1636,13 @@
 			}
  ],
 		"dependency_cache" : [ 			{
+				"name" : "drawing_friends.js",
+				"bootpath" : "~/Documents/Max 8/Library/socket-drawings",
+				"patcherrelativepath" : ".",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
 				"name" : "n4m.monitor.maxpat",
 				"bootpath" : "C74:/packages/Node For Max/patchers/debug-monitor",
 				"type" : "JSON",
