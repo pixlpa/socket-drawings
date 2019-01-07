@@ -1,6 +1,6 @@
 const express = require("express");// use express to serve up the UI page
 const app = express();
-const http = require("http").Server(app);// Socket.IO uses a html server
+const http = require("http").Server(app);// Socket.IO uses a http server
 const io = require("socket.io")(http);
 const metal = require("metal-name");// generates fun heavy metal names
 
@@ -13,6 +13,7 @@ app.use(express.static(__dirname + "/public"));
 // connection listener
 io.on("connection", function (socket) {
 	socket.removeAllListeners();
+	//generate a unique name and assign it
 	let newUsername = metal();
 	socket.metalname = newUsername;
 	onlineUsers++;
@@ -21,6 +22,8 @@ io.on("connection", function (socket) {
 	socket.emit("online-users", onlineUsers);
 	// create a list of friends (using their "metalname")
 	let friendList = [];
+
+	//maybe this should use a forEach?
 	io.sockets.clients((error, clients) => {
 		friendList = [];
 		if (error) throw error;
