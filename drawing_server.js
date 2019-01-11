@@ -4,7 +4,7 @@ const http = require("http").Server(app);// Socket.IO uses a http server
 const io = require("socket.io")(http);
 const metal = require("metal-name");// generates fun heavy metal names
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 
 let onlineUsers = [];
 
